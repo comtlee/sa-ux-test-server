@@ -1,6 +1,6 @@
 {
   "name": "sa-ux-test-server",
-  "version": "0.1.0",
+  "version": "0.2.4",
   "private": true,
   "repository": "https://github.com/comt-mix/sa-ux-test-server.git",
   "author": "Sang-a Lee <comt-mix@gmail.com>",
@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "express": "~4.16.1",
+    "firebase-admin": "^11.2.1",
     "http-errors": "~1.6.3",
     "mongoose": "^6.7.2",
     "morgan": "~1.9.1"

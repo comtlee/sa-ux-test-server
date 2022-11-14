@@ -11,7 +11,7 @@ const corsOptions = {
 };
 
 const authRouter = require("./routes/auth");
-const usersRouter = require("./routes/users");
+const projectsRouter = require("./routes/projects");
 const testsRouter = require("./routes/tests");
 const app = express();
 
@@ -20,12 +20,12 @@ db();
 app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/auth", authRouter);
-app.use("/users", usersRouter);
+app.use("/projects", projectsRouter);
 app.use("/tests", testsRouter);
 
 app.use((req, res, next) => {

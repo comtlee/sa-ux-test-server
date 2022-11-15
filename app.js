@@ -6,7 +6,7 @@ const logger = require("morgan");
 const cors = require("cors");
 const db = require("./config/db");
 const corsOptions = {
-  origin: ["http://localhost:3000"],
+  origin: "*",
   credentials: true,
 };
 

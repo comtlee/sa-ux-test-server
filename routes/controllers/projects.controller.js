@@ -5,14 +5,14 @@ exports.createProject = async (req, res, next) => {
   const { projectName, projectUrl, key } = req.body;
 
   try {
-    await Project.create({
+    const newProject = await Project.create({
       creator: JSON.parse(userId),
       projectName,
       projectUrl,
       key,
     });
 
-    res.json({ result: "success" });
+    res.json({ result: "success", newProject });
   } catch (error) {
     next(error);
   }
@@ -28,6 +28,19 @@ exports.getProject = async (req, res, next) => {
     );
 
     res.json({ result: "success", filteredProjects });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteProject = async (req, res, next) => {
+  const result = req.params.id;
+  const projectID = JSON.parse(result).id;
+
+  try {
+    await Project.findByIdAndDelete(projectID).lean();
+
+    res.json({ result: "success" });
   } catch (error) {
     next(error);
   }

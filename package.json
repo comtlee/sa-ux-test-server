@@ -1,6 +1,6 @@
 {
   "name": "sa-ux-test-server",
-  "version": "0.4.1",
+  "version": "0.5.1",
   "private": true,
   "repository": "https://github.com/comt-mix/sa-ux-test-server.git",
   "author": "Sang-a Lee <comt-mix@gmail.com>",

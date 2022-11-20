@@ -1,6 +1,6 @@
 {
   "name": "sa-ux-test-server",
-  "version": "0.6.1",
+  "version": "0.7.2",
   "private": true,
   "repository": "https://github.com/comt-mix/sa-ux-test-server.git",
   "author": "Sang-a Lee <comt-mix@gmail.com>",
@@ -19,7 +19,9 @@
     "firebase-admin": "^11.2.1",
     "http-errors": "~1.6.3",
     "mongoose": "^6.7.2",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "puppeteer": "^19.2.2",
+    "puppeteer-screen-recorder": "^2.1.2"
   },
   "devDependencies": {
     "eslint": "^8.27.0",

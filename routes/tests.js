@@ -11,4 +11,6 @@ router.get("/", connectTest);
 router.post("/:key/basic", basicTest);
 router.post("/:key/mouse", mouseTest);
 
+router.get("/:id/testlist", getTestlist);
+
 module.exports = router;

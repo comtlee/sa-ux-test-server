@@ -116,3 +116,18 @@ exports.mouseTest = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getTestlist = async (req, res, next) => {
+  const projectID = req.params.id;
+
+  try {
+    const tests = await Test.find({});
+    const testlist = tests.filter((test) =>
+      String(test.projectId === JSON.parse(projectID)),
+    );
+
+    res.json({ result: "success", testlist });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -33,6 +33,35 @@ window.addEventListener("DOMContentLoaded", async () => {
     .catch((error) => {
       throw new Error(error);
     });
+
+  document.body.addEventListener("click", (event) => {
+    const clickEvent = {
+      name: "click",
+      data: {
+        tag: JSON.stringify(event.target.tagName.toString()),
+        context: JSON.stringify(event.target.textContent.toString()),
+      },
+    };
+
+    fetch(
+      `http://localhost:8080/tests/${key}/mouse?event=${JSON.stringify(
+        clickEvent,
+      )}`,
+      {
+        method: "POST",
+      },
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error");
+        }
+
+        return console.log(response);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  });
 });
 
 window.onunload = () => {

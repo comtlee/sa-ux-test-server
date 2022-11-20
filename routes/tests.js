@@ -4,6 +4,7 @@ const {
   connectTest,
   basicTest,
   mouseTest,
+  getTestlist,
 } = require("./controllers/tests.controller");
 
 router.get("/", connectTest);

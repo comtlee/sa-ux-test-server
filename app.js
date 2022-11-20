@@ -15,6 +15,7 @@ const authRouter = require("./routes/auth");
 const projectsRouter = require("./routes/projects");
 const testsRouter = require("./routes/tests");
 const app = express();
+
 db();
 
 app.use(cors(corsOptions));

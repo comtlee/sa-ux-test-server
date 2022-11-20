@@ -86,3 +86,33 @@ exports.basicTest = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.mouseTest = async (req, res, next) => {
+  const params = req.params.key;
+  const event = req.query.event;
+  const parseEvent = JSON.parse(event);
+
+  try {
+    const searchKey = await Project.findOne({ key: params });
+
+    const findID = await Test.findOne({ projectId: searchKey._id });
+
+    if (parseEvent.name === "click") {
+      await Test.updateMany(
+        { projectId: findID.projectId },
+        {
+          $push: {
+            mouseEvent: {
+              tag: parseEvent.data.tag,
+              context: parseEvent.data.context,
+            },
+          },
+        },
+      );
+    }
+
+    res.end();
+  } catch (error) {
+    next(error);
+  }
+};

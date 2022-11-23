@@ -6,11 +6,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const db = require("./config/db");
 
-const corsOptions = {
-  origin: "*",
-  credentials: true,
-};
-
 const authRouter = require("./routes/auth");
 const projectsRouter = require("./routes/projects");
 const testsRouter = require("./routes/tests");
@@ -18,7 +13,7 @@ const app = express();
 
 db();
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

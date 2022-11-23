@@ -1,8 +1,10 @@
 const createError = require("http-errors");
-const ERROR = require("../../constant/error");
+const ERROR = require("../../constants/error");
 const fs = require("fs");
 const Project = require("../../models/Project");
 const Test = require("../../models/Test");
+const puppeteer = require("puppeteer");
+const { PuppeteerScreenRecorder } = require("puppeteer-screen-recorder");
 
 exports.connectTest = (req, res, next) => {
   const uniqId = req.query.key;
@@ -26,7 +28,6 @@ exports.connectTest = (req, res, next) => {
 
     res.send(source);
   });
-  ``;
 
   read.pipe(write);
 };
@@ -127,6 +128,80 @@ exports.getTestlist = async (req, res, next) => {
     );
 
     res.json({ result: "success", testlist });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.videoTest = async (req, res, next) => {
+  const params = req.params.key;
+
+  (async () => {
+    try {
+      const browser = await puppeteer.launch({
+        defaultViewport: {
+          width: 1100,
+          height: 1100,
+          isLandscape: true,
+        },
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        ignoreDefaultArgs: ["--disable-extensions"],
+      });
+
+      const page = await browser.newPage();
+      const recorder = new PuppeteerScreenRecorder(page, {
+        fps: 20,
+      });
+
+      await recorder.start(`./upload/${params}.mp4`);
+      await page.goto("https://google.com");
+
+      //---------**테스트 하는 사이트**----------//
+      // await page.goto("https://scintillating-cassata-f06e40.netlify.app", {
+      //   waitUntil: "networkidle2",
+      // });
+
+      await recorder.stop();
+      await browser.close();
+
+      const playVideo = (file) => {
+        return URL.createObjectURL(file);
+      };
+
+      const fileUrl = playVideo(
+        new Blob([`{${params}.mp4`], {
+          type: "video/mp4",
+        }),
+      );
+      const searchKey = await Project.findOne({ key: params });
+      const findID = await Test.findOne({ projectId: searchKey._id });
+
+      await Test.updateMany(
+        { projectId: findID.projectId },
+        {
+          $push: {
+            video: {
+              fileUrl: fileUrl,
+              createdAt: new Date(),
+            },
+          },
+        },
+      );
+      res.send(`./upload/${params}.mp4`);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  })();
+};
+
+exports.getVideolist = async (req, res, next) => {
+  const projectID = req.params.id;
+
+  try {
+    const tests = await Test.find({ projectId: JSON.parse(projectID) });
+
+    res.json({ result: "success", tests });
   } catch (error) {
     next(error);
   }

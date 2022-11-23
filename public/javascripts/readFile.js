@@ -3,6 +3,11 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   const ip = await fetch("https://api.ipify.org?format=json", {
     method: "GET",
+    header: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Request-Private-Network": true,
+    },
   })
     .then((res) => res.json())
     .then((res) => res.ip);
@@ -21,6 +26,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     )}`,
     {
       method: "POST",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Request-Private-Network": true,
+      },
     },
   )
     .then((response) => {
@@ -28,11 +38,32 @@ window.addEventListener("DOMContentLoaded", async () => {
         throw new Error("Error");
       }
 
-      return console.log(response);
+      console.log(response);
     })
     .catch((error) => {
       throw new Error(error);
     });
+
+  const videoEvent = {
+    name: "video",
+    data: ip,
+  };
+
+  fetch(
+    `http://localhost:8080/tests/${key}/video?event=${JSON.stringify(
+      videoEvent,
+    )}`,
+    {
+      method: "POST",
+      header: {
+        Accept: "multipart/form-data",
+        "content-type": "multipart/form-data",
+        "Access-Control-Request-Private-Network": true,
+      },
+    },
+  )
+    .then((res) => res.blob())
+    .then((res) => console.log(URL.createObjectURL(res)));
 
   document.body.addEventListener("click", (event) => {
     const clickEvent = {
@@ -75,6 +106,21 @@ window.onunload = () => {
     )}`,
     {
       method: "POST",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Request-Private-Network": true,
+      },
     },
-  );
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error");
+      }
+
+      return console.log(response);
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 };

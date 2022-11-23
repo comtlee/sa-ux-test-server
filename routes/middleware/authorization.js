@@ -1,6 +1,6 @@
 const admin = require("../../config/firebase");
 const createError = require("http-errors");
-const ERROR = require("../../constant/error");
+const ERROR = require("../../constants/error");
 
 exports.verifyToken = async (req, res, next) => {
   const token = req.headers?.authorization.split(" ")[1];

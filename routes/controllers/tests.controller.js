@@ -140,7 +140,7 @@ exports.videoTest = async (req, res, next) => {
       });
 
       await recorder.start(`./upload/${params}.mp4`);
-      await page.goto("https://google.com");
+      await page.goto("https://www.vanillacoding.co/");
 
       //---------**테스트 하는 사이트**----------//
       // await page.goto("https://scintillating-cassata-f06e40.netlify.app", {
@@ -150,15 +150,6 @@ exports.videoTest = async (req, res, next) => {
       await recorder.stop();
       await browser.close();
 
-      const playVideo = (file) => {
-        return URL.createObjectURL(file);
-      };
-
-      const fileUrl = playVideo(
-        new Blob([`{${params}.mp4`], {
-          type: "video/mp4",
-        }),
-      );
       const searchKey = await Project.findOne({ key: params });
       const findID = await Test.findOne({ projectId: searchKey._id });
 
@@ -167,13 +158,11 @@ exports.videoTest = async (req, res, next) => {
         {
           $push: {
             video: {
-              fileUrl: fileUrl,
               createdAt: new Date(),
             },
           },
         },
       );
-      res.send(`./upload/${params}.mp4`);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -200,8 +189,21 @@ exports.getVideolist = async (req, res, next) => {
 
   try {
     const tests = await Test.find({ projectId: JSON.parse(projectID) });
+    const project = await Project.find({ projectId: tests.projectId });
+    const params = project[0].key;
 
-    res.json({ result: "success", tests });
+    let readStream = fs.createReadStream(`./upload/${params}.mp4`);
+    let stat = fs.statSync(`./upload/${params}.mp4`);
+
+    readStream.on("close", () => {
+      res.end();
+    });
+
+    res.setHeader("Content-Length", stat.size);
+    res.setHeader("Content-Type", "multipart/form-data");
+    res.setHeader("Content-Disposition", "inline; filename=test.mp4");
+
+    readStream.pipe(res);
   } catch (error) {
     next(error);
   }

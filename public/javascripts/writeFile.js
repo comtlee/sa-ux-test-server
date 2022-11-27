@@ -6,7 +6,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     header: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      "Access-Control-Request-Private-Network": true,
     },
   })
     .then((res) => res.json())
@@ -29,7 +28,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       header: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Request-Private-Network": true,
       },
     },
   )
@@ -37,8 +35,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       if (!response.ok) {
         throw new Error("Error");
       }
-
-      console.log(response);
     })
     .catch((error) => {
       throw new Error(error);
@@ -56,14 +52,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     {
       method: "POST",
       header: {
-        Accept: "multipart/form-data",
-        "content-type": "multipart/form-data",
-        "Access-Control-Request-Private-Network": true,
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
     },
-  )
-    .then((res) => res.blob())
-    .then((res) => console.log(URL.createObjectURL(res)));
+  );
 
   document.body.addEventListener("click", (event) => {
     const clickEvent = {
@@ -109,7 +102,6 @@ window.onunload = () => {
       header: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Request-Private-Network": true,
       },
     },
   )
@@ -124,4 +116,4 @@ window.onunload = () => {
       throw new Error(error);
     });
 };
-const key = "67041d00-7a45-4e15-80de-979962575235";
+const key = "aed80861-1365-4099-bc96-6e8309d810d4";

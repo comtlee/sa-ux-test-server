@@ -154,8 +154,8 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
 ***
 
 ## 🚨 이슈사항 및 🧗‍♂️ 챌린지
-### Issue: [Recording 기능 / 영상 저장 기능](https://shaded-calculator-f57.notion.site/82bc911301d94b47ae86a2890e2a82b5)
-### Challenge: [Recording / 영상 전송 기능](https://shaded-calculator-f57.notion.site/73e25a7f26a74e16bcccc98c6872eac9)
+Issue: [Recording 기능](https://shaded-calculator-f57.notion.site/82bc911301d94b47ae86a2890e2a82b5)<br>
+Challenge: [Recording 기능](https://shaded-calculator-f57.notion.site/73e25a7f26a74e16bcccc98c6872eac9)
 
 ***
 

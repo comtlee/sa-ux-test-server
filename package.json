@@ -1,13 +1,13 @@
 {
   "name": "sa-ux-test-server",
-  "version": "0.11.3",
+  "version": "1.0.0",
   "private": true,
   "repository": "https://github.com/comt-mix/sa-ux-test-server.git",
-  "author": "Sang-a Lee <comt-mix@gmail.com>",
+  "author": "Sang-a Lee <comt.mix@gmail.com>",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "jest --detectOpenHandles --forceExit --maxWorkers=1 --verbose"
+    "test": "NODE_ENV=test jest --detectOpenHandles --forceExit --maxWorkers=1 --verbose"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

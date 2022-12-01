@@ -173,12 +173,13 @@ exports.getTestlist = async (req, res, next) => {
   const projectID = req.params.id;
 
   try {
-    const tests = await Test.find({});
-    const testlist = tests.filter((test) =>
-      String(test.projectId === JSON.parse(projectID)),
-    );
+    const testlist = await Test.find({ projectId: JSON.parse(projectID) });
 
-    res.json({ result: "success", testlist });
+    if (testlist.length > 0) {
+      res.json({ result: "success", testlist: testlist[0] });
+    } else {
+      res.json({ result: "failure", testlist: undefined });
+    }
   } catch (error) {
     next(error);
   }
@@ -189,21 +190,26 @@ exports.getVideolist = async (req, res, next) => {
 
   try {
     const tests = await Test.find({ projectId: JSON.parse(projectID) });
-    const project = await Project.find({ projectId: tests.projectId });
-    const params = project[0].key;
 
-    let readStream = fs.createReadStream(`./upload/${params}.mp4`);
-    let stat = fs.statSync(`./upload/${params}.mp4`);
+    if (tests.length > 0) {
+      const project = await Project.find({ projectId: tests.projectId });
+      const params = project[0].key;
 
-    readStream.on("close", () => {
-      res.end();
-    });
+      let readStream = fs.createReadStream(`./upload/${params}.mp4`);
+      let stat = fs.statSync(`./upload/${params}.mp4`);
 
-    res.setHeader("Content-Length", stat.size);
-    res.setHeader("Content-Type", "multipart/form-data");
-    res.setHeader("Content-Disposition", "inline; filename=test.mp4");
+      readStream.on("close", () => {
+        res.end();
+      });
 
-    readStream.pipe(res);
+      res.setHeader("Content-Length", stat.size);
+      res.setHeader("Content-Type", "multipart/form-data");
+      res.setHeader("Content-Disposition", "inline; filename=test.mp4");
+
+      readStream.pipe(res);
+    } else {
+      res.json({ result: "failure" });
+    }
   } catch (error) {
     next(error);
   }

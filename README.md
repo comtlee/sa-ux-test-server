@@ -84,7 +84,7 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
 </details>
 
 <details>
-  <summary>프로젝트 생성</summary>
+  <summary>프로젝트 생성 및 연결</summary>
   
   https://user-images.githubusercontent.com/89302818/204107341-5dccb9c8-2ff8-4311-a02b-6bf7338cb8bf.mov
   
@@ -93,8 +93,12 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
 
   - "+" 버튼을 누르면 프로젝트 생성하기 모달창이 뜬다.
   - 정보 입력 후 제출 시 프로젝트 정보가 담긴 카드가 추가되며, 테스트 할 홈페이지에 적용할 고유의 키값이 자동으로 발급된다.
-  - 발급받은 키값을 테스트하려는 사이트의 html 파일 속 head에 위와 같이 입력한다.
-  - key=”발급받은 key값 입력”
+  - 발급받은 키값을 테스트하려는 사이트의 html 파일 속 head에 위와 같이 입력한다.(key=”발급받은 key값 입력”)
+  - 위의 과정이 완료되면 더 이상의 설정과정은 없다. 이제 설정한 사이트는 테스트 할 준비가 완료된다.
+  
+  https://user-images.githubusercontent.com/89302818/205474959-34a92425-1dd1-42e6-88f6-5cafb30badde.mov
+  - 테스트 사이트에 사용자가 접속하면 서버와의 연결이 시작되며, 이 때부터 사용자의 기본 정보들이 서버에 전송되어 저장된다.<br>
+    (접속 확인을 위해 일시적으로 console창에 찍히도록 한 점 참고 바랍니다.)
   
 </details>
 
@@ -106,6 +110,10 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
   - Dashboard 화면에 들어가면 방문자, 평균 이용시간, 유입된 이전 사이트에 대한 정보를 통계로 보여준다.
   - 이용자가 테스트 사이트에서 마우스로 클릭을 했을 경우 클릭이벤트가 발생하여 해당 위치의 키워드와 tag정보를 저장한다.
   - 클릭된 키워드와 태그를 기준으로 count를 측정하여 통계와 그래프를 활용했다.
+  
+  <img width="1421" alt="image" src="https://user-images.githubusercontent.com/89302818/205475964-33dd0850-903f-4cea-9adb-c0a7ac6ce223.png">
+  
+  - 사이트에 key값 설정이 제대로 되지 않았거나, 아직 이용자가 접속하지 않아 가지고 올 정보가 없는 경우 메시지로 알려준다.
   
 </details>
 
@@ -132,6 +140,15 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
   
 </details>
 
+<details>
+  <summary>잘못된 경로 접속</summary>
+  
+  https://user-images.githubusercontent.com/89302818/205476163-4d7dd154-12ba-4e06-b1a2-0e8ee06e2989.mov
+
+  - 정상적이지 않은 경로로 접속시 404에러 페이지가 뜬다.
+  
+</details>
+
 ***
 
 ## 🛠 기술 스택
@@ -153,13 +170,15 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
 
 ***
 
-## 🚨 이슈사항 및 🧗‍♂️ 챌린지
-Issue: [Recording 기능](https://shaded-calculator-f57.notion.site/82bc911301d94b47ae86a2890e2a82b5)<br>
-Challenge: [Recording 기능](https://shaded-calculator-f57.notion.site/73e25a7f26a74e16bcccc98c6872eac9)
+## 🚨이슈사항 및 🧗‍♂️챌린지
+[Issue](https://shaded-calculator-f57.notion.site/82bc911301d94b47ae86a2890e2a82b5)<br>
+[Challenge](https://shaded-calculator-f57.notion.site/73e25a7f26a74e16bcccc98c6872eac9)
 
 ***
 
 ## 💁🏻‍♀️ 만든 사람
 ### 이상아 comt.mix@gmail.com <br>
 프로젝트 관련 세부적인 사항은 노션페이지를 참고해주세요 [CLICK!](https://shaded-calculator-f57.notion.site/SA-UX-TEST-1211dbcd959f4726a1967730571d0e5c)
+
+
 

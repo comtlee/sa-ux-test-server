@@ -4,6 +4,7 @@ const {
   connectTest,
   basicTest,
   mouseTest,
+  unloadTest,
   getTestlist,
   videoTest,
   getVideolist,
@@ -11,6 +12,7 @@ const {
 
 router.get("/", connectTest);
 
+router.post("/:key/unload", unloadTest);
 router.post("/:key/basic", basicTest);
 router.post("/:key/mouse", mouseTest);
 router.post("/:key/video", videoTest);

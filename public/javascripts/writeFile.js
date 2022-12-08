@@ -35,6 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       if (!response.ok) {
         throw new Error("Error");
       }
+      console.log("이용자 접속");
     })
     .catch((error) => {
       throw new Error(error);
@@ -56,7 +57,16 @@ window.addEventListener("DOMContentLoaded", async () => {
         "Content-Type": "application/json",
       },
     },
-  );
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error");
+      }
+      console.log("비디오 녹화완료");
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
 
   document.body.addEventListener("click", (event) => {
     const clickEvent = {
@@ -80,7 +90,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           throw new Error("Error");
         }
 
-        return console.log(response);
+        console.log("클릭이벤트 발생");
       })
       .catch((error) => {
         throw new Error(error);
@@ -88,14 +98,14 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-window.onunload = () => {
-  const disconnectEvent = {
-    name: "disconnect",
+window.onbeforeunload = () => {
+  const unloadEvent = {
+    name: "unload",
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/basic?event=${JSON.stringify(
-      disconnectEvent,
+    `http://localhost:8080/tests/${key}/unload?event=${JSON.stringify(
+      unloadEvent,
     )}`,
     {
       method: "POST",
@@ -104,16 +114,7 @@ window.onunload = () => {
         "Content-Type": "application/json",
       },
     },
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error");
-      }
-
-      return console.log(response);
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
+  );
+  console.log("이용자 접속 종료");
 };
 const key = "988b83bc-d69b-446e-8831-20afb4fca82b";

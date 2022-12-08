@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/basic?event=${JSON.stringify(
+    `https://api.sa-ux-test.site/tests/${key}/basic?event=${JSON.stringify(
       connectEvent,
     )}`,
     {
@@ -47,7 +47,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/video?event=${JSON.stringify(
+    `https://api.sa-ux-test.site/tests/${key}/video?event=${JSON.stringify(
       videoEvent,
     )}`,
     {
@@ -78,7 +78,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     };
 
     fetch(
-      `http://localhost:8080/tests/${key}/mouse?event=${JSON.stringify(
+      `https://api.sa-ux-test.site/tests/${key}/mouse?event=${JSON.stringify(
         clickEvent,
       )}`,
       {
@@ -104,7 +104,7 @@ window.onbeforeunload = () => {
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/unload?event=${JSON.stringify(
+    `https://api.sa-ux-test.site/tests/${key}/unload?event=${JSON.stringify(
       unloadEvent,
     )}`,
     {

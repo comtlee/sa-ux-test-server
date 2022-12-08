@@ -44,15 +44,12 @@ const TestSchema = new mongoose.Schema({
   },
   basicEvent: {
     type: [basicEventSchema],
-    default: {},
   },
   mouseEvent: {
     type: [mouseEventSchema],
-    default: {},
   },
   video: {
     type: [videoSchema],
-    default: {},
   },
 });
 

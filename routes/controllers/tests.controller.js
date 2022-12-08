@@ -47,40 +47,36 @@ exports.basicTest = async (req, res, next) => {
     const projectID = searchKey._id;
     const findID = await Test.findOne({ projectId: projectID });
 
-    let visit = 1;
-
     if (!findID && parseEvent.name === "connect") {
       const newBasicTest = await new Test({
         projectId: projectID,
         basicEvent: {
-          visit: visit,
+          visit: 1,
           referrer: parseEvent.data.url,
           connectTime: new Date(),
           disconnectTime: new Date(),
           lastIp: parseEvent.data.lastIp,
         },
-        mouseEvent: {
-          tag: [],
-          context: [],
-        },
-        video: {},
       });
+
       newBasicTest.save();
     }
 
-    if (parseEvent === "disconnect") {
-      await Test.updateMany(
-        { projectId: findID.projectId },
-        {
-          $set: {
-            "basicEvent.disconnectTime": new Date(),
-          },
-          $inc: {
-            "basicEvent.visit": 1,
-          },
+    await Test.updateOne(
+      { projectId: projectID },
+      {
+        $inc: {
+          "basicEvent.0.visit": 1,
         },
-      );
-    }
+        $set: {
+          "basicEvent.0.connectTime": new Date(),
+        },
+        $push: {
+          "basicEvent.0.referrer": parseEvent.data.url,
+          "basicEvent.0.lastIp": parseEvent.data.lastIp,
+        },
+      },
+    );
 
     res.end();
   } catch (error) {
@@ -99,7 +95,7 @@ exports.mouseTest = async (req, res, next) => {
     const findID = await Test.findOne({ projectId: searchKey._id });
 
     if (parseEvent.name === "click") {
-      await Test.updateMany(
+      await Test.updateOne(
         { projectId: findID.projectId },
         {
           $push: {
@@ -153,7 +149,7 @@ exports.videoTest = async (req, res, next) => {
       const searchKey = await Project.findOne({ key: params });
       const findID = await Test.findOne({ projectId: searchKey._id });
 
-      await Test.updateMany(
+      await Test.updateOne(
         { projectId: findID.projectId },
         {
           $push: {
@@ -163,10 +159,44 @@ exports.videoTest = async (req, res, next) => {
           },
         },
       );
-    } catch (err) {
-      res.status(500).json(err);
+
+      res.end();
+    } catch (error) {
+      next(error);
     }
   })();
+};
+
+exports.unloadTest = async (req, res, next) => {
+  const params = req.params.key;
+  const event = req.query.event;
+  const parseEvent = JSON.parse(event);
+
+  try {
+    const searchKey = await Project.findOne({ key: params });
+
+    if (!searchKey) {
+      next(createError(ERROR.FAILED_REQUEST));
+    }
+
+    const projectID = searchKey._id;
+    const findID = await Test.findOne({ projectId: projectID });
+
+    if (parseEvent.name === "unload") {
+      return await Test.updateOne(
+        { projectId: findID.projectId },
+        {
+          $set: {
+            "basicEvent.0.disconnectTime": new Date(),
+          },
+        },
+      );
+    }
+
+    res.end();
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.getTestlist = async (req, res, next) => {

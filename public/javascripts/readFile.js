@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/basic?event=${JSON.stringify(
+    `https://api.sa-ux-test.site/tests/${key}/basic?event=${JSON.stringify(
       connectEvent,
     )}`,
     {
@@ -35,6 +35,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       if (!response.ok) {
         throw new Error("Error");
       }
+      console.log("이용자 접속");
     })
     .catch((error) => {
       throw new Error(error);
@@ -46,56 +47,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   };
 
   fetch(
-    `http://localhost:8080/tests/${key}/video?event=${JSON.stringify(
+    `https://api.sa-ux-test.site/tests/${key}/video?event=${JSON.stringify(
       videoEvent,
-    )}`,
-    {
-      method: "POST",
-      header: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    },
-  );
-
-  document.body.addEventListener("click", (event) => {
-    const clickEvent = {
-      name: "click",
-      data: {
-        tag: JSON.stringify(event.target.tagName.toString()),
-        context: JSON.stringify(event.target.textContent.toString()),
-      },
-    };
-
-    fetch(
-      `http://localhost:8080/tests/${key}/mouse?event=${JSON.stringify(
-        clickEvent,
-      )}`,
-      {
-        method: "POST",
-      },
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error");
-        }
-
-        return console.log(response);
-      })
-      .catch((error) => {
-        throw new Error(error);
-      });
-  });
-});
-
-window.onunload = () => {
-  const disconnectEvent = {
-    name: "disconnect",
-  };
-
-  fetch(
-    `http://localhost:8080/tests/${key}/basic?event=${JSON.stringify(
-      disconnectEvent,
     )}`,
     {
       method: "POST",
@@ -109,10 +62,58 @@ window.onunload = () => {
       if (!response.ok) {
         throw new Error("Error");
       }
-
-      return console.log(response);
+      console.log("비디오 녹화완료");
     })
     .catch((error) => {
       throw new Error(error);
     });
+
+  document.body.addEventListener("click", (event) => {
+    const clickEvent = {
+      name: "click",
+      data: {
+        tag: JSON.stringify(event.target.tagName.toString()),
+        context: JSON.stringify(event.target.textContent.toString()),
+      },
+    };
+
+    fetch(
+      `https://api.sa-ux-test.site/tests/${key}/mouse?event=${JSON.stringify(
+        clickEvent,
+      )}`,
+      {
+        method: "POST",
+      },
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error");
+        }
+
+        console.log("클릭이벤트 발생");
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  });
+});
+
+window.onbeforeunload = () => {
+  const unloadEvent = {
+    name: "unload",
+  };
+
+  fetch(
+    `https://api.sa-ux-test.site/tests/${key}/unload?event=${JSON.stringify(
+      unloadEvent,
+    )}`,
+    {
+      method: "POST",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  console.log("이용자 접속 종료");
 };

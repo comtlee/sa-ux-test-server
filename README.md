@@ -87,9 +87,11 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
   <summary>프로젝트 생성 및 연결</summary>
   
   https://user-images.githubusercontent.com/89302818/204107341-5dccb9c8-2ff8-4311-a02b-6bf7338cb8bf.mov
+
+  <img width="500" alt="스크린샷 2022-12-13 오후 10 21 09" src="https://user-images.githubusercontent.com/89302818/207331656-1f896378-a719-44e6-a9a8-14b150962e3b.png">
+  <img width="500" alt="스크린샷 2022-12-13 오후 10 24 09" src="https://user-images.githubusercontent.com/89302818/207331695-a512a672-23cd-4232-9204-7bb705267677.png">
+
   
-  <img width="400" alt="key 설정" src="https://user-images.githubusercontent.com/89302818/204108290-e68b4381-3281-49df-a8bb-60703edcc107.png">
-  <img width="400" alt="개발자 도구 key 확인" src="https://user-images.githubusercontent.com/89302818/204108352-9846b6df-47af-4481-aef1-76f289251a1d.png">
 
   - "+" 버튼을 누르면 프로젝트 생성하기 모달창이 뜬다.
   - 정보 입력 후 제출 시 프로젝트 정보가 담긴 카드가 추가되며, 테스트 할 홈페이지에 적용할 고유의 키값이 자동으로 발급된다.
@@ -98,7 +100,7 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
   
   https://user-images.githubusercontent.com/89302818/205474959-34a92425-1dd1-42e6-88f6-5cafb30badde.mov
   - 테스트 사이트에 사용자가 접속하면 서버와의 연결이 시작되며, 이 때부터 사용자의 기본 정보들이 서버에 전송되어 저장된다.<br>
-    (접속 확인을 위해 일시적으로 console창에 찍히도록 한 점 참고 바랍니다.)
+    (접속 확인을 보여주기 위해 일시적으로 console창에 찍히도록 한 점 참고 부탁드립니다.)
   
 </details>
 
@@ -179,6 +181,4 @@ SA-UX-TEST는 특정 사이트를 방문하는 이용자들의 활동에 대한 
 ## 💁🏻‍♀️ 만든 사람
 ### 이상아 comt.mix@gmail.com <br>
 프로젝트 관련 세부적인 사항은 노션페이지를 참고해주세요 [CLICK!](https://shaded-calculator-f57.notion.site/SA-UX-TEST-1211dbcd959f4726a1967730571d0e5c)
-
-
 
